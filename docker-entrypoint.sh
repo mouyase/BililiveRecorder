@@ -4,12 +4,9 @@ set -e
 
 umask $UMASK
 
-usermod -u $PUID user
-groupmod -g $PGID users
-
-chown -R user:users /app
-chown -R user:users /rec
+chown -R ${PUID}:${PGID} /app
+chown -R ${PUID}:${PGID} /rec
 
 export HOME=/home/user
 
-exec /usr/local/bin/gosu user dotnet /app/BililiveRecorder.Cli.dll $@
+exec /usr/local/bin/gosu ${PUID}:${PGID} dotnet /app/BililiveRecorder.Cli.dll $@
